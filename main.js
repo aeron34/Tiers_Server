@@ -1,14 +1,8 @@
 const express = require('express');
 const path = require('path');
-const cors = require('cors');
-const jwt = require('jsonwebtoken');
-const redis = require('redis');
 app = express();
 
 app.use(express.static('images'));
-app.use(cors());
-
-redisClient = redis.createClient();
 
 let characters = {
   "falco": {
@@ -68,26 +62,6 @@ let characters = {
 
   }
 }
-
-app.get('/redis', (req, res) => {
-  redisClient.get('mes', (err, reply) => {
-      if(err || !reply)
-      {
-        res.status(500).json(err);
-      }
-      else{
-        res.json(reply);
-      }
-    })
-})
-
-app.get('/', (req, res) => {
-  const token = jwt.sign({text: "TOEKN"}, 'JWT SCE');
-  Promise.resolve(redisClient.set('me', token))
-  .then(
-    success => res.json({'success': true, token})
-  );
-})
 
 app.get('/data/:name', (req, res) => {
   console.log(req.params.name);
