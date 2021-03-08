@@ -100,8 +100,4 @@ app.get('/data/', (req, res) => {
   res.send(characters);
 });
 
-app.get('/123', (req, res) => {
-  res.sendFile(path.join(__dirname+'/images/falco.png'));
-});
-
-app.listen(5000);
+app.listen(process.env.PORT);
